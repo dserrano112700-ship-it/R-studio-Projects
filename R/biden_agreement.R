@@ -15,14 +15,12 @@ data$chamber <- as.factor(data$chamber)
 data$party <- as.factor(data$party)
 glimpse(data)
 
-
 data %>%
   select(-state) %>%
   filter(!complete.cases()) %>%
   view()
 
-
-#making simple histogram
+#making simple histogram--------------------------------------------------------
 data_histogram <- data %>%
   ggplot(aes(x = agree_pct))+
   geom_histogram(binwidth = 0.05,
@@ -30,7 +28,7 @@ data_histogram <- data %>%
                  color = "black")
 data_histogram
 
-#making simple boxplot
+#making simple box plot---------------------------------------------------------
 data_boxplot <- ggplot(data, aes(x = party,
                  y= agree_pct,
                  fill = party))+
@@ -41,7 +39,7 @@ data_boxplot <- ggplot(data, aes(x = party,
        y = "Agreement percentage")
 data_boxplot
 
-#scatterplot
+#scatter plot-------------------------------------------------------------------
 data_scatterplot <- data %>%
   ggplot(aes(biden_margin, agree_pct, colour = party))+
   geom_point(size = 3, alpha = 0.5)+
@@ -49,8 +47,7 @@ data_scatterplot <- data %>%
   facet_wrap(~party)
 data_scatterplot
 
-
-#Bar Chart
+#Bar Chart----------------------------------------------------------------------
 data_bar <- data %>%
   ggplot(aes(party, fill = party))+
   geom_bar()+
@@ -60,7 +57,7 @@ data_bar <- data %>%
        y = "Head Count")
 data_bar
 
-#bar chart by chamber
+#bar chart by chamber-----------------------------------------------------------
 data_bar.chamber <- data %>%
   ggplot(aes(party, fill = party))+
   geom_bar()+
@@ -81,7 +78,7 @@ ggplot(data,
     y = "Count"
   )
 
-#Violin Plot
+#Violin Plot--------------------------------------------------------------------
 data_violin <- data %>%
   ggplot(aes(party, agree_pct, fill = party))+
   geom_violin(trim = FALSE)+
@@ -89,7 +86,7 @@ data_violin <- data %>%
   labs(title = "Distribution of Agreement by Party")
 data_violin
 
-#density plot
+#density plot-------------------------------------------------------------------
 data_density <- data %>%
   ggplot(aes(agree_pct, fill = party))+
   geom_density(alpha = 0.05)+
@@ -97,7 +94,7 @@ data_density <- data %>%
        x = "Agreement")
 data_density
 
-#dot plot
+#dot plot-----------------------------------------------------------------------
 top20 <- data %>%
   arrange(desc(agree_pct)) %>%
   slice(1:20)
